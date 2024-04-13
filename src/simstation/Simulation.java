@@ -1,5 +1,10 @@
 package simstation;
-
+/**
+ *
+ * Edits:
+ * Martin 4/11:
+ * -In this file I created the run method to increment the clock in the agent loop and to sleep for 20 milliseconds
+ */
 import mvc.*;
 
 import java.util.ArrayList;
@@ -36,6 +41,21 @@ public class Simulation extends Model {
         }
     }
 
+    public ArrayList<Agent> getAgents() {
+        return agents;
+    }
+
+    public int getTime() {
+        return clock;
+    }
+
+    public int getNumAgents() {
+        return agents.size();
+    }
+
+    public void incrementClock() {
+        clock++;
+    }
     public Agent getNeighbor(Agent agent, int radius) {
         return null;
     }
@@ -48,4 +68,6 @@ public class Simulation extends Model {
     public void addAgent(Agent a){
         agents.add(a);
     }
+
+
 }

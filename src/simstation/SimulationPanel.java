@@ -32,4 +32,10 @@ public class SimulationPanel extends AppPanel {
         stats.addActionListener(this);
         controlPanel.add(stats);
     }
+
+    public static void main(String[] args){
+        AppFactory factory= new SimulationFactory();
+        AppPanel panel=new SimulationPanel(factory);
+        panel.display();
+    }
 }
