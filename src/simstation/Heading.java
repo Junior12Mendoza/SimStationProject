@@ -15,7 +15,6 @@ import mvc.*;
 public enum Heading {
     NORTH, SOUTH, EAST, WEST;
 
-    // Method to generate a random heading
     public static Heading parse(String heading){
         if(heading.equalsIgnoreCase("north")) return NORTH;
         if(heading.equalsIgnoreCase("east")) return EAST;
@@ -24,6 +23,8 @@ public enum Heading {
         Utilities.error("Invalid heading "+ heading);
         return null;
     }
+
+    // Method to generate a random heading
     public static Heading random() {
         int luck=Utilities.rng.nextInt(4);
         if(luck==0) return NORTH;

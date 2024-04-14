@@ -7,16 +7,20 @@ import java.io.Serializable;
  *
  * Edits:
  * -Martin 4/10:
- * I created a constructor to initalize the heading variable, a getter and setter method
+ * I created a constructor to initialize the heading variable, a getter and setter method
  *
  * -Martin 4/11:
  * -I created the code for the run method which define the behavior of the agent
- * when it is executued in its own thread and sleep for 20 milisecond(I think that the right time)
+ * when it is executed in its own thread and sleep for 20 millisecond(I think that the right time)
+ *
+ * -Junior 4/12:
+ * Made update() abstract and implemented the move() method (Also made each agent start in a random position)
  */
 
-public class Agent implements Serializable, Runnable {
+public abstract class Agent implements Serializable, Runnable {
     protected String name;
-    protected int xc, yc;
+    protected int xc = Utilities.rng.nextInt(500);
+    protected int yc = Utilities.rng.nextInt(500);
     protected boolean suspended = false;
     protected boolean stopped = false;
     transient protected Thread myThread;
@@ -53,7 +57,6 @@ public class Agent implements Serializable, Runnable {
     public void start(){
         myThread = new Thread(this);
         myThread.start();
-
     }
 
     public void suspend(){
@@ -68,12 +71,23 @@ public class Agent implements Serializable, Runnable {
         suspended = false;
     }
 
-    public void update(){
-
-    }
+    public abstract void update();
 
     public void move(int steps){
+        int viewSize = 500;
 
+        if(heading == Heading.NORTH){
+            yc = (yc + steps) % viewSize;
+        }
+        else if(heading == Heading.WEST){
+            xc = (xc - steps + viewSize) % viewSize;
+        }
+        else if(heading == Heading.EAST){
+            xc = (xc + steps) % viewSize;
+        }
+        else if(heading == Heading.SOUTH){
+            yc = (yc - steps + viewSize) % viewSize;
+        }
     }
 
     public int getXc() {

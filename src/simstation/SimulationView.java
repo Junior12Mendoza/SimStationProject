@@ -6,7 +6,7 @@ import mvc.*;
  *
  * Edits:
  * Martin 4/11:
- * -In this file I inpelemented a method to draw each of the agents
+ * -In this file I implemented a method to draw each of the agents
  */
 import java.awt.*;
 import java.util.ArrayList;
