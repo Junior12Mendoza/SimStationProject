@@ -14,8 +14,6 @@ public class SimulationView extends View{
     public SimulationView(Model model) {
         super(model);
         setPreferredSize(new Dimension(500, 500)); // Set preferred size of the view
-
-        // Display each of the Agents in the Simulation
     }
     @Override
     public void paintComponent(Graphics gc) {
@@ -30,7 +28,7 @@ public class SimulationView extends View{
     }
     private void drawAgent(Graphics gc, Agent agent) {
         // Example: Draw a circle for each agent at its position
-        gc.setColor(Color.BLUE);
+        gc.setColor(Color.WHITE);
         gc.fillOval(agent.getXc(), agent.getYc(), 10, 10);
     }
 }

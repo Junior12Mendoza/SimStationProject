@@ -15,6 +15,9 @@ import java.io.Serializable;
  *
  * -Junior 4/12:
  * Made update() abstract and implemented the move() method (Also made each agent start in a random position)
+ *
+ * -Junior 4/17:
+ * Fixed bugs in checkSuspended() and resume() that caused the resume button to throw an exception
  */
 
 public abstract class Agent implements Serializable, Runnable {
@@ -25,7 +28,6 @@ public abstract class Agent implements Serializable, Runnable {
     protected boolean stopped = false;
     transient protected Thread myThread;
     protected Simulation world;
-
     protected Heading heading;
 
     public Agent(){
@@ -42,10 +44,9 @@ public abstract class Agent implements Serializable, Runnable {
     @Override
     public void run() {
         while (!stopped) {
-            if (!suspended) {
-                update();
-                world.incrementClock(); // Increment clock in each agent's update loop
-            }
+            checkSuspended();
+            update();
+            world.incrementClock(); // Increment clock in each agent's update loop
             try {
                 Thread.sleep(20); // Sleep for 20 milliseconds for smooth graphics
             } catch (InterruptedException e) {
@@ -59,7 +60,21 @@ public abstract class Agent implements Serializable, Runnable {
         myThread.start();
     }
 
-    public void suspend(){
+    public void checkSuspended(){
+        try{
+             while(!stopped && suspended){
+                 synchronized (this){
+                     wait();
+                     suspended = false;
+                 }
+             }
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public synchronized void suspend(){
         suspended = true;
     }
 
@@ -68,7 +83,9 @@ public abstract class Agent implements Serializable, Runnable {
     }
 
     public void resume(){
-        suspended = false;
+        synchronized(this){
+            notify();
+        }
     }
 
     public abstract void update();
@@ -88,6 +105,16 @@ public abstract class Agent implements Serializable, Runnable {
         else if(heading == Heading.SOUTH){
             yc = (yc - steps + viewSize) % viewSize;
         }
+
+        world.changed();
+    }
+
+    public void setWorld(Simulation world) {
+        this.world = world;
+    }
+
+    public void getWorld(Simulation world){
+        this.world=world;
     }
 
     public int getXc() {

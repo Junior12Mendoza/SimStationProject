@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class Simulation extends Model {
     int clock = 0;
-    ArrayList<Agent> agents;
+    public ArrayList<Agent> agents;
 
     public Simulation() {
         agents = new ArrayList<>();
@@ -72,7 +72,7 @@ public class Simulation extends Model {
 
         // If anyone can make this look any better, please do LMAO
         for(int i = 0; i < agents.size(); i++){
-            int index = (i + startPos) % viewSize;
+            int index = (i + startPos) % agents.size();
 
             if (minx < maxx && miny < maxy && agents.get(index).xc > minx && agents.get(index).xc < maxx && agents.get(index).yc > miny && agents.get(index).yc < maxy){
                 return agents.get(index);
@@ -89,6 +89,14 @@ public class Simulation extends Model {
         }
         return null;
     }
+    public String getStats() {
+        StringBuilder stats = new StringBuilder();
+        stats.append("Clock= ").append(clock).append(" seconds\n");
+        stats.append("#agents= ").append(getNumAgents()).append("\n");
+        // Add more statistics if needed
+        return stats.toString();
+    }
+
 
     // Each extension of simstation should override This
     public void populate() {}

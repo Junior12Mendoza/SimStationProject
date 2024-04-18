@@ -16,6 +16,8 @@ public class Prisoner extends Agent{
     protected Strategy strategy;
 
     public Prisoner(String strategy){
+        super();
+
         if(strategy.equalsIgnoreCase("Cheat")){
             this.strategy = new Cheat(this);
         }
@@ -62,7 +64,7 @@ public class Prisoner extends Agent{
         }
 
         heading = Heading.random();
-        move(Utilities.rng.nextInt(10) + 1);
+        move(Utilities.rng.nextInt(10) + 1); // move() calls world.changed()
     }
 
     public void updateFitness(int amt){
