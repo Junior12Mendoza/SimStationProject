@@ -1,5 +1,7 @@
 package prisonersDilemma;
 
+import java.io.Serializable;
+
 /**
  * Edits
  * - Junior 4/13
@@ -8,7 +10,7 @@ package prisonersDilemma;
  * - Junior 4/17
  * Added toString() for getStats() in PrisonerSimulation
  */
-public abstract class Strategy {
+public abstract class Strategy implements Serializable {
     protected Prisoner myPrisoner;
     public Strategy(Prisoner myPrisoner){
         this.myPrisoner = myPrisoner;

@@ -7,6 +7,9 @@ import mvc.*;
  * Martin 4/11:
  * -In this file I created a switch case senario which gets eahc possible outcome for the buttons
  * -I also created the basic stuff for the program like the get help,edit commands,and about.
+ *
+ * Nathan 4/19:
+ * expanded the help text
  */
 public class SimulationFactory implements AppFactory {
     @Override
@@ -27,7 +30,11 @@ public class SimulationFactory implements AppFactory {
     @Override
     public String[] getHelp() {
         return new String[]{
-                "Click on the buttons to make the program run"
+                "Click on the buttons to make the program run",
+                "Start: begins the simulation",
+                "Suspend: pauses the running simulation",
+                "Resume: resumes the paused simulation",
+                "Stop: ends the simulation permanently"
         };
     }
 
@@ -43,7 +50,6 @@ public class SimulationFactory implements AppFactory {
 
     @Override
     public Command makeEditCommand(Model model, String type, Object source) {
-
         switch(type){
             case "Start":
                 return new StartCommand(model);

@@ -13,7 +13,7 @@ import java.util.Iterator;
  */
 
 
-public class PlagueFactory implements AppFactory {
+public class PlagueFactory extends SimulationFactory {
 
     @Override
     public Model makeModel() {

@@ -9,35 +9,57 @@ import java.util.ArrayList;
 /**
  *
  * Edits:
- * Martin Ceballos 4/16
+ * Martin Ceballos 4/18:
+ * I updated the code in the populate to start off with 20 infected(red) agents, the first while loops makes sure that the infected is grester than zero
+ * The second while loop I created adds the unenfected agents to the GUI
+ * I override the stats method to include the percent infected to the system
+ * I added a calculate distance method to get the difference in coordinates between the different agents in the program
  *
  *
  */
 
 
 public class PlagueSimulation extends Simulation {
+    public static int RECOVERY_RATE = 10; // % chance of recovery
+
 
     public static int VIRULENCE = 50; // % chance of infection
     public static int RESISTANCE = 2; // % chance of resisting infection
     @Override
     public void populate() {
         // Populate the simulation with Plague agents
-        int numAgents=50;
-        for (int i = 0; i < numAgents; i++) {
+        agents.clear();
+
+        // Populate the simulation with initially infected agents
+        int initialInfections = 20;
+
+        while (initialInfections > 0) {
             Plague plagueAgent = new Plague();
-            // Determine if the agent should be infected based on VIRULENCE
-            if (Utilities.rng.nextInt(100) < VIRULENCE) {
-                // Determine if the agent can resist infection based on RESISTANCE
-                if (Utilities.rng.nextInt(100) < RESISTANCE) {
-                    plagueAgent.infect();
-                }
-            }
-            // Add the agent to the simulation
+
+            // Infect the agent
+            plagueAgent.infect();
+
+            // Add the infected agent to the simulation
             addAgent(plagueAgent);
-            //Set the world refrence for the agent
+            // Set the world reference for the agent
             plagueAgent.setWorld(this);
+
+            initialInfections--;
         }
 
+        // Populate the rest of the simulation with uninfected agents until reaching the total count of 50
+        int remainingAgents = 50 - initialInfections;
+
+        while (remainingAgents > 0) {
+            Plague plagueAgent = new Plague();
+
+            // Add the uninfected agent to the simulation
+            addAgent(plagueAgent);
+            // Set the world reference for the agent
+            plagueAgent.setWorld(this);
+
+            remainingAgents--;
+        }
     }
     // Rename the method to avoid clash
     public ArrayList<Plague> getPlagueAgents() {

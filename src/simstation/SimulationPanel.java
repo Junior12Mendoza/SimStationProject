@@ -2,7 +2,18 @@ package simstation;
 
 import java.awt.*;
 import javax.swing.*;
+import java.util.*;
 import mvc.*;
+
+/**
+ *
+ * Edits:
+ * Nathan 4/19:
+ * Added pearce's setModel override with fixes
+ * fix: s.iterator() --> s.agents.iterator()
+ * fix: call s.startTimer()
+ */
+
 
 public class SimulationPanel extends AppPanel {
     private JButton resume;
@@ -10,6 +21,7 @@ public class SimulationPanel extends AppPanel {
     private JButton stats;
     private JButton stop;
     private JButton suspend;
+
     public SimulationPanel(AppFactory factory) {
         super(factory);
         start = new JButton("Start");
@@ -33,9 +45,9 @@ public class SimulationPanel extends AppPanel {
         controlPanel.add(stats);
     }
 
-    public static void main(String[] args){
-        AppFactory factory= new SimulationFactory();
-        AppPanel panel=new SimulationPanel(factory);
+    public static void main(String[] args) {
+        AppFactory factory = new SimulationFactory();
+        AppPanel panel = new SimulationPanel(factory);
         panel.display();
     }
 }
