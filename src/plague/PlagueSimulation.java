@@ -20,10 +20,10 @@ import java.util.ArrayList;
 
 
 public class PlagueSimulation extends Simulation {
-    public static int RECOVERY_RATE = 10; // % chance of recovery
-
-
-    public static int VIRULENCE = 50; // % chance of infection
+    // Messing with these values is encouraged!
+    public static int RECOVERY_RATE = 2; // % chance of recovery
+    public static int INFECTION_RADIUS = 20; // How far an infected agent can infect another from (World is 500x500)
+    public static int VIRULENCE = 100; // % chance of infection
     public static int RESISTANCE = 2; // % chance of resisting infection
     @Override
     public void populate() {
